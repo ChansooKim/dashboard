@@ -20,7 +20,8 @@ export async function getWeatherInfo() {
     const ny = 125;     // 예보지점 Y좌표
 
     try {
-        const res = await axios.get(`${apiUrl}?serviceKey=${serviceKey}&pageNo=1&numOfRows=12&dataType=JSON&base_date=${baseDate}&base_time=${currentTime}&nx=${nx}&ny=${ny}`);
+        const res =
+            await axios.get(`${apiUrl}?serviceKey=${serviceKey}&pageNo=1&numOfRows=12&dataType=JSON&base_date=${baseDate}&base_time=${currentTime}&nx=${nx}&ny=${ny}`);
         if (res.data.response.header.resultCode === '00') {
             let data = res.data.response.body.items;
             // 12개 항목으로 발표시간 별 데이터를 반환
