@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Checkbox } from "@/components/ui/checkbox"
 import supabase from "@/lib/supabase/client"
+import { ko } from "date-fns/locale/ko";
 
 export default function Home() {
     let [todolist, setTodolists] = useState([]);
@@ -53,8 +54,8 @@ export default function Home() {
         fetchWeatherInfo();
     }, []);
 
-    if(loading) return <div>Loading...</div>;
-    if(error) return <div>Error: {error.message}</div>;
+    /*if(loading) return <div>Loading...</div>;
+    if(error) return <div>Error: {error.message}</div>;*/
 
     return (
         <div className="grid grid-cols-3 gap-4 p-4">
@@ -77,11 +78,12 @@ export default function Home() {
                                 )}
                             >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                {date ? format(date, "yyyy-MM-dd") : <span>날짜를 선택하세요</span>}
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
+                                locale={ko}
                                 mode="single"
                                 selected={date}
                                 onSelect={setDate}
