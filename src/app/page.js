@@ -65,7 +65,8 @@ export default function Home() {
                     <span>{weatherInfo.msg}</span>
                 </div>
                 <p className="text-sm">"즐거운 하루 보내세요."</p>
-                <div>
+                <div className="space-y-4">   {/*여백*/}
+                     {/*TODO 추가/수정버튼*/}
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
@@ -91,14 +92,22 @@ export default function Home() {
                     {loading && <p>Loading...</p>}
                     {error && <p>Error: {error}</p>}
                     {todolist.length > 0 && (
-                        <div className="space-y-1">
+                        <div className="items-top flex space-x-5">
                             {todolist.map((todo) => (
-                                <div key={todo.id} className="flex items-center">
-                                    <Checkbox id={`task-${todo.id}`} />
-                                    <label className="ml-2" htmlFor={`task-${todo.id}`}>
-                                        {todo.text}
+                                <div key={todo.id} className="flext items-top flex space-x-2">
+                                    <Checkbox
+                                        id={`task-${todo.id}`}
+                                        checked={todo.complete}
+                                        onChange={(e)=>handleCheckboxChange(todo.id, e.target.checked)}
+                                    />
+                                    <div className="grid gap-1.5 leading-none">
+                                    <label htmlFor={`task-${todo.id}`}
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                        {todo.title}
                                     </label>
+                                    <p className="text-sm text-muted-foreground">{todo.text}</p>
                                 </div>
+                            </div>
                             ))}
                         </div>
                     )}
@@ -108,6 +117,7 @@ export default function Home() {
 
             </div>
             <div className="flex space-y-4">
+                {/*TODO 달력이 현재로서는 큰 의미가 없는 것 같음.. 상단 날짜 선택 또는 달력 아이콘을 배치해서, 클릭 시 hovering되게 수정*/}
                 <Calendar className="border rounded-md" />
             </div>
         </div>
@@ -120,4 +130,8 @@ function formatDate(date) {
     const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+function handleCheckboxChange(id, checked) {
+    console.log('Handleing Checkbox ==> id : '+id+'checked : '+checked);
 }
