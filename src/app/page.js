@@ -17,6 +17,7 @@ export default function Home() {
     let [loading, setLoading] = useState(true);
     let [error, setError] = useState(null);
     let [date, setDate] = useState(null);
+    let [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         if(!date) return;
@@ -27,7 +28,6 @@ export default function Home() {
             const { data, error } = await supabase
                 .from('todolist').select('*').eq('date', formattedDate);
 
-            console.log('data', data);
             if(error) {
                 setError(error.message);
             } else {
@@ -38,6 +38,12 @@ export default function Home() {
 
         fetchTodos();
     }, [date]);
+
+    // 날짜 선택 후 Popover 닫기
+    const handleDateSelect = (selectedDate) => {
+        setDate(selectedDate);
+        setIsOpen(false);
+    };
 
     const [weatherInfo, setWeatherInfo] = useState({
         temp: null,
@@ -68,17 +74,19 @@ export default function Home() {
                 <p className="text-sm">"즐거운 하루 보내세요."</p>
                 <div className="space-y-4">   {/*여백*/}
                      {/*TODO 추가/수정버튼*/}
-                    <Popover>
+                    <Popover open={isOpen} onOpenChange={setIsOpen}>
                         <PopoverTrigger asChild>
                             <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-[240px] justify-start text-left font-normal",
+                                    "w-[180px] justify-start text-left font-normal",
                                     !date && "text-muted-foreground"
                                 )}
+                                onClick={() => setIsOpen(true)}
                             >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {date ? format(date, "yyyy-MM-dd") : <span>날짜를 선택하세요</span>}
+
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
@@ -86,7 +94,7 @@ export default function Home() {
                                 locale={ko}
                                 mode="single"
                                 selected={date}
-                                onSelect={setDate}
+                                onSelect={handleDateSelect}
                                 initialFocus
                             />
                         </PopoverContent>
@@ -137,3 +145,5 @@ function formatDate(date) {
 function handleCheckboxChange(id, checked) {
     console.log('Handleing Checkbox ==> id : '+id+'checked : '+checked);
 }
+
+
