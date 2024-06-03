@@ -11,6 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox"
 import supabase from "@/lib/supabase/client"
 import { ko } from "date-fns/locale/ko";
+import SearchEngineSwitcher from "@/components/custom/searchEngine";
 
 export default function Home() {
     let [todolist, setTodolists] = useState([]);
@@ -64,7 +65,7 @@ export default function Home() {
     if(error) return <div>Error: {error.message}</div>;*/
 
     return (
-        <div className="grid grid-cols-3 gap-4 p-4">
+        <div className="grid grid-cols-4 gap-4 p-4">
             <div className="space-y-4">
                 <div className="flex items-center space-x-2">
                     <div className="h-6 w-6">{weatherInfo.icon}</div>
@@ -123,19 +124,19 @@ export default function Home() {
                     )}
                 </div>
             </div>
-            <div className="space-y-4">
-
+            <div className="col-span-2">
+                <SearchEngineSwitcher/>
             </div>
-            <div className="flex space-y-4">
-                {/*TODO 달력이 현재로서는 큰 의미가 없는 것 같음.. 상단 날짜 선택 또는 달력 아이콘을 배치해서, 클릭 시 hovering되게 수정*/}
-                <Calendar className="border rounded-md" />
-            </div>
+            {/*<div className="flex space-y-4">*/}
+            {/*    /!*TODO 달력이 현재로서는 큰 의미가 없는 것 같음.. 상단 날짜 선택 또는 달력 아이콘을 배치해서, 클릭 시 hovering되게 수정*!/*/}
+            {/*    <Calendar className="border rounded-md"/>*/}
+            {/*</div>*/}
         </div>
     );
 }
 
 function formatDate(date) {
-    if(!date instanceof Date) return null;
+    if (!date instanceof Date) return null;
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
     const day = String(date.getDate()).padStart(2, '0');
