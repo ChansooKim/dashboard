@@ -14,7 +14,7 @@ import { ko } from "date-fns/locale/ko";
 import SearchEngineSwitcher from "@/components/custom/searchEngine";
 
 export default function Home() {
-    let [todolist, setTodolists] = useState([]);
+    let [todolist, setTodoLists] = useState([]);
     let [loading, setLoading] = useState(true);
     let [error, setError] = useState(null);
     let [date, setDate] = useState(null);
@@ -32,7 +32,7 @@ export default function Home() {
             if(error) {
                 setError(error.message);
             } else {
-                setTodolists(data);
+                setTodoLists(data);
             }
             setLoading(false);
         };
@@ -127,10 +127,6 @@ export default function Home() {
             <div className="col-span-2">
                 <SearchEngineSwitcher/>
             </div>
-            {/*<div className="flex space-y-4">*/}
-            {/*    /!*TODO 달력이 현재로서는 큰 의미가 없는 것 같음.. 상단 날짜 선택 또는 달력 아이콘을 배치해서, 클릭 시 hovering되게 수정*!/*/}
-            {/*    <Calendar className="border rounded-md"/>*/}
-            {/*</div>*/}
         </div>
     );
 }

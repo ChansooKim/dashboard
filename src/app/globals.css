@@ -74,3 +74,32 @@
       @apply bg-background text-foreground;
     }
   }
+
+.modal-overlay {
+  position: absolute;
+  top: calc(100% + 10px); /* 호출한 버튼 아래에 위치 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110%; /* 모달의 너비를 조정합니다. */
+  max-width: 600px; /* 모달의 최대 너비를 설정합니다. */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
