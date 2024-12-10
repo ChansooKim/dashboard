@@ -21,7 +21,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-progress": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
-    "@supabase/ssr": "^0.3.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.43.4",
     "@types/styled-components": "^5.1.34",
     "antd": "^5.17.4",
